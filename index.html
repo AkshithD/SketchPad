@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SketchPad</title>
+        <link rel="stylesheet" href="styles.css">
+        <h1 id="header">SketchPad</h1>
+    </head>
+    <body>
+        <div class="button-area">
+            <button id="colorpicker">Color Picker</button>
+            <button id="rgb">RGB</button>
+            <button id="clear">Clear Grid</button>
+            <div class="choice">
+                <button id="one">16x16</button>
+                <button id="two">32x32</button>
+                <button id="three">64x64</button>
+            </div>
+        </div>
+        <div class="grid-box">
+
+        </div>
+        <script>
+            const container = document.querySelector('.grid-box')
+            function makeGrid(rows, cols){
+                container.style.setProperty('--grid-rows', rows);
+                container.style.setProperty('--grid-cols', cols);
+                for(let i=0; i<(rows * cols); i++){
+                    let cell = document.createElement("div"+i);
+                    cell.addEventListener('mousemove',() => {
+                        cell.setAttribute('style','background-color:black')
+                    })
+                    container.appendChild(cell).className = "grid-item";
+                };
+            };
+            function clear(){
+                container.style.setProperty('--grid-rows', rows);
+                container.style.setProperty('--grid-cols', cols);
+                for(let i=0; i<(rows * cols); i++){
+                    let cell = document.querySelector("div"+i);
+                    cell.remove()
+                };
+            };
+
+            
+            let rows=8
+            let cols=8
+            
+            let num1=document.querySelector('#one')
+            let num2=document.querySelector('#two')
+            let num3=document.querySelector('#three')
+            num1.addEventListener('click',() => {
+                clear()
+                rows=16
+                cols=16
+                makeGrid(rows,cols)
+            })
+            num2.addEventListener('click',() => {
+                clear()
+                rows=32
+                cols=32
+                makeGrid(rows,cols)
+            })
+            num3.addEventListener('click',() => {
+                clear()
+                rows=64
+                cols=64
+                makeGrid(rows,cols)
+            })
+
+            makeGrid(rows,cols);
+
+            const clearbut = document.querySelector('#clear')
+            clearbut.addEventListener('click',()=>{ 
+                clear()
+                makeGrid(rows,cols)
+            })
+
+        </script>
+    </body>
+</html>
