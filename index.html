@@ -8,8 +8,8 @@
     </head>
     <body>
         <div class="button-area">
-            <button id="colorpicker">Color Picker</button>
-            <button id="rgb">RGB</button>
+            <input type="color" id="colorpicker" name="colorpicker" value="#e66465">
+            <button id="rgb">Random Color</button>
             <button id="clear">Clear Grid</button>
             <div class="choice">
                 <button id="one">16x16</button>
@@ -22,14 +22,16 @@
         </div>
         <script>
             const container = document.querySelector('.grid-box')
+            let bcolor ="rgb("+0+","+0+","+0+")"
             function makeGrid(rows, cols){
                 container.style.setProperty('--grid-rows', rows);
                 container.style.setProperty('--grid-cols', cols);
                 for(let i=0; i<(rows * cols); i++){
                     let cell = document.createElement("div"+i);
-                    cell.addEventListener('mousemove',() => {
-                        cell.setAttribute('style','background-color:black')
-                    })
+                    container.addEventListener('click',()=>{
+                        cell.addEventListener('mousemove',() => {
+                            cell.style.backgroundColor = bcolor;
+                        })})
                     container.appendChild(cell).className = "grid-item";
                 };
             };
@@ -74,6 +76,16 @@
             clearbut.addEventListener('click',()=>{ 
                 clear()
                 makeGrid(rows,cols)
+            })
+
+            const colorpick = document.querySelector('#colorpicker')
+            colorpick.addEventListener('input',() =>{
+                bcolor=event.target.value
+            })
+
+            const random = document.querySelector('#rgb')
+            random.addEventListener('click',() =>{
+                bcolor ="rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")"
             })
 
         </script>
